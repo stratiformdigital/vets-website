@@ -1,4 +1,20 @@
+# STRATIFORM NOTES:
+
+Must be on correct node version. (and potentially yarn version but I'd ignore that and see if your current version works or you can do this: `npm i -g yarn@1.19.1`)
+```sh
+nvm install 14.15.0
+yarn install
+yarn build --env entry=discover-your-benefits
+yarn watch --env entry=discover-your-benefits
+```
+
+You should be on the widget's home page!
+
+
+OTHER DOCS that came with repo:
+
 # VA.gov ![Build Status](https://github.com/department-of-veterans-affairs/vets-website/actions/workflows/continuous-integration.yml/badge.svg?branch=main)
+
 
 ## Table of Contents
 

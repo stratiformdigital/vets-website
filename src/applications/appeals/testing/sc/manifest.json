@@ -1,7 +1,0 @@
-{
-  "appName": "SC testing",
-  "entryFile": "./app-entry.jsx",
-  "entryName": "sc-testing",
-  "rootUrl": "/decision-reviews/test-sc",
-  "productId": "4f623c79-478c-4d64-868a-54f06df113a6"
-}

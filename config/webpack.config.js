@@ -562,15 +562,7 @@ module.exports = async (env = {}) => {
     baseConfig.plugins.push(...scaffoldedHtml);
   }
 
-  // Open homepage or specific app in browser
-  if (buildOptions.open) {
-    const target =
-      buildOptions.openTo || buildOptions.entry
-        ? // Assumes the first in the list has a rootUrl
-          getEntryManifests(buildOptions.entry)[0].rootUrl
-        : '';
-    baseConfig.devServer.open = { target };
-  }
+  baseConfig.devServer.open = { target: '/discover-your-benefits' };
 
   if (buildOptions.analyzer) {
     baseConfig.plugins.push(

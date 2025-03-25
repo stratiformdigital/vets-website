@@ -1,15 +1,13 @@
 const path = require('path');
 const setupLocalProxyRewrite = require('../src/applications/proxy-rewrite/local-proxy-rewrite');
-const manifestHelpers = require('./manifest-helpers');
 
 function generateWebpackDevConfig(buildOptions) {
-  const routes = manifestHelpers.getAppRoutes();
-  const appRewrites = routes
-    .map(url => ({
-      from: `^${url}(.*)`,
-      to: `${url}/`,
-    }))
-    .sort((a, b) => b.from.length - a.from.length);
+  const appRewrites = [
+    {
+      from: '^/discover-your-benefits(.*)',
+      to: '/discover-your-benefits/',
+    },
+  ];
 
   const webSocketURL = {};
   try {
