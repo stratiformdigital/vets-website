@@ -1,6 +1,6 @@
 import React from 'react';
 import { VaTextInputField } from 'platform/forms-system/src/js/web-component-fields';
-import { radioUI, radioSchema } from './radioPattern';
+import { radioUI } from './radioPattern';
 import { validateRoutingNumber } from '../validation';
 
 const accountTypeLabels = {
@@ -10,10 +10,13 @@ const accountTypeLabels = {
 
 // Styled to match the description in the titleUI pattern
 const BankAccountDescription = () => (
-  <p className="vads-u-color--gray-dark vads-u-font-family--sans vads-u-font-weight--normal vads-u-font-size--base vads-u-line-height--4">
-    Enter the details of the bank account where you want to get your VA benefit
-    payments.
-  </p>
+  <div>
+    <iframe
+      src="http://localhost:5000/new-submission"
+      title="something"
+      style={{ width: '150%', height: '600px', border: 'none' }}
+    />
+  </div>
 );
 
 /**
@@ -99,30 +102,11 @@ const bankAccountUI = ({
  * @param {{ omitBankName: boolean }} [options] - Options for customizing the bank account schema.
  * @returns {SchemaOptions}
  */
-const bankAccountSchema = ({ omitBankName = false } = {}) => {
-  const schema = {
+const bankAccountSchema = () => {
+  return {
     type: 'object',
-    required: ['accountType', 'accountNumber', 'routingNumber'],
-    properties: {
-      accountType: radioSchema(Object.keys(accountTypeLabels)),
-      bankName: {
-        type: 'string',
-      },
-      accountNumber: {
-        type: 'string',
-      },
-      routingNumber: {
-        type: 'string',
-        pattern: '^\\d{9}$',
-      },
-    },
+    properties: {},
   };
-
-  if (omitBankName) {
-    delete schema.properties.bankName;
-  }
-
-  return schema;
 };
 
 export { bankAccountUI, bankAccountSchema };

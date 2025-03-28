@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable react/no-unused-state */
 import React from 'react';
 import { connect } from 'react-redux';
 import { focusElement } from '@department-of-veterans-affairs/platform-utilities/ui';
@@ -41,6 +43,7 @@ export class ConfirmationPage extends React.Component {
     this.initializePage();
     this.handleResults();
     this.resetSubmissionStatus();
+    // eslint-disable-next-line react/no-access-state-in-setstate
     const sortedBenefitsList = this.state.benefitsList.sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name > b.name) return 1;
@@ -61,7 +64,8 @@ export class ConfirmationPage extends React.Component {
 
   handleResults() {
     const { results, location, displayResults } = this.props;
-
+    console.log('results');
+    console.log(results);
     if (results.data && results.data.length > 0) {
       this.handleResultsData();
     } else if (location.query && Object.keys(location.query).length > 0) {

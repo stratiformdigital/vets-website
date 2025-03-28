@@ -10,11 +10,12 @@ import { submitHandler } from '../utils/helpers';
 
 import manifest from '../manifest.json';
 
-import IntroductionPage from '../containers/IntroductionPage';
+import IntroductionPage from '../containers/IntroductionPage'; // eslint-disable-line import/no-cycle
 import ConfirmationPage from '../containers/ConfirmationPage';
 
 // pages
 import goals from '../pages/goals';
+import personalize from '../pages/personalize';
 import disabilityRating from '../pages/disabilityRating';
 import militaryService from '../pages/militaryService';
 import militaryBranch from '../pages/militaryBranch';
@@ -41,7 +42,8 @@ export const formConfig = {
   introduction: IntroductionPage,
   confirmation: ConfirmationPage,
   v3SegmentedProgressBar: true,
-  stepLabels: 'Goals;Service;Separation;Discharge;Disability;Review',
+  stepLabels:
+    'Goals;Service;Separation;Discharge;Disability;Personalize;Review',
   formId: 'T-QSTNR',
   customText: {
     submitButtonText: 'Submit',
@@ -173,6 +175,17 @@ export const formConfig = {
           title: 'Disability Rating',
           uiSchema: disabilityRating.uiSchema,
           schema: disabilityRating.schema,
+        },
+      },
+    },
+    chapter6: {
+      title: 'Personalize',
+      pages: {
+        personalize: {
+          path: 'personalize',
+          title: 'Personalize',
+          uiSchema: personalize.uiSchema,
+          schema: personalize.schema,
         },
       },
     },
