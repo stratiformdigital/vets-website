@@ -7,6 +7,12 @@ import SubmitHelper from '../components/SubmitHelper';
 import formConfig from '../config/form';
 
 export default function App({ location, children }) {
+  window.addEventListener('message', event => {
+    // Optionally check event.origin for security
+    const receivedData = event.data;
+    localStorage.setItem('personalizedData', JSON.stringify(receivedData));
+  });
+
   return (
     <div className="vads-l-grid-container desktop-lg:vads-u-padding-x--0 discover-your-benefits">
       <VaBreadcrumbs
