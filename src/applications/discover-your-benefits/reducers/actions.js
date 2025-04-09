@@ -84,62 +84,57 @@ export const mapBenefitFromFormInputData = (benefit, formData) => {
   return true;
 };
 
-function calculateDaysAgo(dateStr) {
-  const inputDate = new Date(dateStr);
-  const today = new Date();
+// function calculateDaysAgo(dateStr) {
+//   const inputDate = new Date(dateStr);
+//   const today = new Date();
 
-  // Calculate the difference in milliseconds and convert to days
-  const diffTime = today.getTime() - inputDate.getTime();
-  return Math.floor(diffTime / (1000 * 60 * 60 * 24));
-}
+//   // Calculate the difference in milliseconds and convert to days
+//   const diffTime = today.getTime() - inputDate.getTime();
+//   return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+// }
 
-function categorizeDaysAgo(daysAgo) {
-  if (daysAgo <= 90) {
-    return 'UP_TO_3_MONTHS';
-  }
-  if (daysAgo <= 180) {
-    return 'UP_TO_6_MONTHS';
-  }
-  if (daysAgo <= 365) {
-    return 'UP_TO_1_YEAR';
-  }
-  if (daysAgo <= 730) {
-    return 'UP_TO_2_YEARS';
-  }
-  if (daysAgo <= 1095) {
-    return 'UP_TO_3_YEARS';
-  }
-  return 'OVER_3_YEARS';
-}
+// function categorizeDaysAgo(daysAgo) {
+//   if (daysAgo <= 90) {
+//     return 'UP_TO_3_MONTHS';
+//   }
+//   if (daysAgo <= 180) {
+//     return 'UP_TO_6_MONTHS';
+//   }
+//   if (daysAgo <= 365) {
+//     return 'UP_TO_1_YEAR';
+//   }
+//   if (daysAgo <= 730) {
+//     return 'UP_TO_2_YEARS';
+//   }
+//   if (daysAgo <= 1095) {
+//     return 'UP_TO_3_YEARS';
+//   }
+//   return 'OVER_3_YEARS';
+// }
 
-export function getResults(formData) {
-  delete formData.personalize;
-  formData.militaryServiceCurrentlyServing = false;
-  formData.characterOfDischargeTWO = {};
-
+export function getResults(_formData) {
   const personalizedData = JSON.parse(localStorage.getItem('personalizedData'));
-  formData.characterOfDischarge = personalizedData.characterOfService;
-  formData.militaryBranch = { [personalizedData.department]: true };
-  formData.branchComponents = {
-    [personalizedData.department]: { [personalizedData.dutyType]: true },
-  };
+  console.log('PERSONALIZED RECOMMENDATIONS');
+  console.log(JSON.stringify(personalizedData.recommendations));
 
-  formData.separation = categorizeDaysAgo(
-    calculateDaysAgo(personalizedData.separationDate),
-  );
-  formData.militaryServiceTotalTimeServed = categorizeDaysAgo(
-    personalizedData.totalServiceDays,
-  );
-
-  console.log('FILTER STUFF');
-  console.log(JSON.stringify(formData));
   return async dispatch => {
     dispatch(fetchResultsStart());
 
     try {
-      const results = BENEFITS_LIST.filter(b =>
-        mapBenefitFromFormInputData(b, formData),
-      );
+      // const results = BENEFITS_LIST.filter(b =>
+      //   mapBenefitFromFormInputData(b, formData),
+      // );
+      const results = personalizedData.recommendations.map(item => ({
+        id: item.title,
+        name: item.title,
+        category: item.variant,
+        description: item.body,
+        isTimeSensitive: false,
+        learnMoreURL: item.link,
+        applyNowURL: '',
+      }));
+      console.log('results');
+      console.log(JSON.stringify(results));
 
       dispatch(fetchResultsSuccess(results));
     } catch (error) {
